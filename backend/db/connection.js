@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 mongoose
   .connect(
-    "mongodb+srv://lakshyasuthar:L%40kshya2003@cluster0.o01tzdk.mongodb.net/?retryWrites=true&w=majority"
+    "add mongodb connection url    %40 for L"
   )
   .then(() => {
     console.log("Connected to the database ");
