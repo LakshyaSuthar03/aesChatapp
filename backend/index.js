@@ -6,7 +6,7 @@ import "./db/connection.js";
 import chatModel from "./db/models/chatModel.js";
 import cors from "cors";
 import bodyParser from "body-parser";
-
+let password = null;
 const app = express();
 const httpServer = http.createServer(app);
 app.use(cors());
@@ -22,7 +22,24 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   socket.on("join-room", (data) => {
-    socket.join(data.room);
+    //this is an ES6 Set of all client ids in the room
+    const clients = io.sockets.adapter.rooms.get(data.room);
+    //to get the number of clients in this room
+    const numClients = clients ? clients.size : 0;
+    console.log(password);
+    if (numClients == 0 && !password) {
+      socket.join(data.room);
+      password = data.password;
+      socket.emit("join-room-response", { status: "success" });
+      return;
+    } else {
+      if (password == data.password) {
+        socket.join(data.room);
+        socket.emit("join-room-response", { status: "success" });
+        return;
+      }
+    }
+    socket.emit("join-room-response", { status: "failed" });
   });
 
   socket.on("send-msg", async (data) => {

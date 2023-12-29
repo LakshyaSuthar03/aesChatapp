@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./chat.module.css";
 import crypto from "crypto-js";
 import axios from "axios";
+import uniqid from "uniqid";
 const Chat = ({ socket, room, name }) => {
   const [msg, setMsg] = useState("");
   const [messages, setMessages] = useState([]);
@@ -78,7 +79,7 @@ const Chat = ({ socket, room, name }) => {
         {messages.map((item) => {
           return (
             <>
-              <div className={styles.msgInner}>
+              <div className={styles.msgInner} key={uniqid()}>
                 <div
                   className={
                     item.name == name ? styles.recievedMsg : styles.sentMsg

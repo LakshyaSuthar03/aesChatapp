@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Join from "./pages/Join/Join";
-
+import React from "react";
 const App = () => {
   return (
     <div>
