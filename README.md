@@ -1,1 +1,1 @@
-auto commit
+My new file contents
